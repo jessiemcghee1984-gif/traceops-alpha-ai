@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TraceOps Alpha Ai</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #111111;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; }
+    .topbar {
+      background: #111111;
+      color: white;
+      text-align: center;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header {
+      border-bottom: 1px solid #e5e5e5;
+      background: white;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      gap: 16px;
+    }
+    .brand {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111111;
+    }
+    .nav-links {
+      display: none;
+      gap: 18px;
+      font-size: 14px;
+    }
+    .nav-links a { color: #444; }
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .btn-primary {
+      background: #111111;
+      color: white;
+    }
+    .btn-secondary {
+      border: 1px solid #d4d4d4;
+      color: #111111;
+      background: white;
+    }
+    .hero {
+      padding: 70px 0 50px;
+    }
+    .eyebrow {
+      color: #666;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 42px;
+      line-height: 1.15;
+      margin: 0 0 20px;
+    }
+    .subheadline {
+      font-size: 20px;
+      color: #555;
+      max-width: 750px;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .trust {
+      margin-top: 18px;
+      color: #666;
+      font-size: 14px;
+    }
+    section {
+      padding: 70px 0;
+    }
+    .section-light {
+      background: #f7f7f7;
+    }
+    h2 {
+      font-size: 34px;
+      line-height: 1.2;
+      margin: 0 0 16px;
+    }
+    .section-text {
+      color: #555;
+      font-size: 18px;
+      max-width: 800px;
+    }
+    .grid {
+      display: grid;
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .grid-4 {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .card {
+      background: white;
+      border: 1px solid #e5e5e5;
+      border-radius: 18px;
+      padding: 22px;
+    }
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    .card p, .card li {
+      color: #555;
+      font-size: 15px;
+    }
+    .bullets {
+      margin: 24px 0 0;
+      padding-left: 18px;
+    }
+    .offer {
+      background: #111111;
+      color: white;
+      border-radius: 24px;
+      padding: 36px 24px;
+    }
+    .offer p, .offer li {
+      color: #d1d1d1;
+    }
+    .offer .price {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 10px 0 6px;
+    }
+    .offer ul {
+      padding-left: 18px;
+    }
+    .faq-item {
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+      padding: 18px 20px;
+      background: white;
+      margin-top: 14px;
+    }
+    .faq-item strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+    .cta-band {
+      background: #111111;
+      color: white;
+      text-align: center;
+      padding: 70px 20px;
+    }
+    .cta-band p {
+      color: #d1d1d1;
+      font-size: 18px;
+      max-width: 700px;
+      margin: 16px auto 0;
+    }
+    .footer {
+      border-top: 1px solid #e5e5e5;
+      padding: 36px 0;
+      color: #555;
+      font-size: 14px;
+    }
+    .footer strong {
+      color: #111;
+      font-size: 18px;
+      display: block;
+      margin-bottom: 8px;
+    }
+    @media (min-width: 900px) {
+      .nav-links { display: flex; }
+      h1 { font-size: 58px; }
+      h2 { font-size: 42px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    Founding Beta now open — first 10 firms get setup and onboarding included.
+  </div>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">TraceOps Alpha Ai</div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20Ai%20Demo">Demo</a>
+      </div>
+      <a class="btn btn-primary" href="https://buy.stripe.com/cNi5kDfH48jmcZA6c7fnO00">Start Founding Beta</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="eyebrow">Built for investigators and legal-support operations</div>
+        <h1>Close more cases with AI-powered intake, follow-up, and case workflow.</h1>
+        <div class="subheadline">
+          TraceOps Alpha Ai helps private investigators and legal-support teams capture inquiries, respond faster, automate follow-up, and organize case activity in one place.
+        </div>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="https://buy.stripe.com/cNi5kDfH48jmcZA6c7fnO00">Start Founding Beta — $299</a>
+          <a class="btn btn-secondary" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20Ai%20Demo">Book a 15-minute demo</a>
+        </div>
+        <div class="trust">
+          Built for investigators, legal-support teams, skip-trace operators, and case-intake workflows.
+        </div>
+      </div>
+    </section>
+
+    <section class="section-light">
+      <div class="container">
+        <h2>Most firms do not lose revenue because they lack leads. They lose it because intake, follow-up, and workflow break down.</h2>
+        <div class="section-text">
+          When response is slow and case information is scattered, good opportunities go cold and billable work gets buried in admin.
+        </div>
+        <div class="grid grid-4">
+          <div class="card">
+            <h3>Slow response kills opportunities</h3>
+            <p>New inquiries go cold when nobody responds fast enough.</p>
+          </div>
+          <div class="card">
+            <h3>Follow-up falls through</h3>
+            <p>Leads disappear because reminders and outreach are inconsistent.</p>
+          </div>
+          <div class="card">
+            <h3>Case information gets scattered</h3>
+            <p>Notes, messages, files, and status updates end up split across too many places.</p>
+          </div>
+          <div class="card">
+            <h3>Admin work steals billable time</h3>
+            <p>Reporting, updates, and intake cleanup take time away from revenue-producing work.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h2>TraceOps Alpha Ai gives your team one system to capture, qualify, follow up, and manage active work.</h2>
+        <div class="section-text">
+          Instead of juggling texts, notes, spreadsheets, documents, and callbacks, your team gets a focused workflow for inquiry handling, case conversion, task tracking, document support, and operational visibility.
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section-light">
+      <div class="container">
+        <h2>Core capabilities</h2>
+        <div class="section-text">
+          The platform is designed around the work that actually affects responsiveness, organization, and revenue.
+        </div>
+        <div class="grid grid-3">
+          <div class="card">
+            <h3>AI lead intake</h3>
+            <p>Capture inquiry details, summarize the matter, and route the lead faster.</p>
+          </div>
+          <div class="card">
+            <h3>Follow-up automation</h3>
+            <p>Keep leads warm with reminders, email, SMS, and task triggers.</p>
+          </div>
+          <div class="card">
+            <h3>Lead-to-case workflow</h3>
+            <p>Move qualified inquiries into structured case records without starting over.</p>
+          </div>
+          <div class="card">
+            <h3>Case dashboard</h3>
+            <p>Track status, tasks, notes, documents, and communication in one place.</p>
+          </div>
+          <div class="card">
+            <h3>Document and report support</h3>
+            <p>Upload files, generate summaries, and prepare reporting faster.</p>
+          </div>
+          <div class="card">
+            <h3>Built for operations</h3>
+            <p>Designed around intake, follow-up, case movement, and revenue instead of generic CRM clutter.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container offer">
+        <div class="eyebrow" style="color:#9ca3af;">Launch offer</div>
+        <h2 style="color:white;">Founding Beta</h2>
+        <div class="price">$299 one-time setup deposit</div>
+        <p>For the first 10 firms only</p>
+        <p>
+          The fastest way to get started. Includes setup, onboarding, workflow configuration, and early access while the platform is being finalized with real firms.
+        </p>
+        <ul>
+          <li>Account setup</li>
+          <li>Initial workflow configuration</li>
+          <li>Intake and follow-up setup</li>
+          <li>Lead and case structure configuration</li>
+          <li>Onboarding support</li>
+          <li>Priority access to early improvements</li>
+        </ul>
+        <div class="hero-buttons">
+          <a class="btn btn-primary" style="background:white;color:#111;" href="https://buy.stripe.com/cNi5kDfH48jmcZA6c7fnO00">Claim your founding spot</a>
+          <a class="btn btn-secondary" style="border-color:#444;color:white;background:transparent;" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20Ai%20Demo">Book a 15-minute demo</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section-light">
+      <div class="container">
+        <h2>Frequently asked questions</h2>
+
+        <div class="faq-item">
+          <strong>Is this a generic CRM?</strong>
+          No. It is built specifically around inquiry handling, follow-up, case movement, and operational workflow for investigation and legal-support use cases.
+        </div>
+
+        <div class="faq-item">
+          <strong>Do I need to move everything at once?</strong>
+          No. The beta is designed to start with the highest-value workflow first: intake, follow-up, and case organization.
+        </div>
+
+        <div class="faq-item">
+          <strong>What do I get in the founding beta?</strong>
+          You get early access, setup support, onboarding, and a direct line into product refinement while the system is being finalized.
+        </div>
+
+        <div class="faq-item">
+          <strong>Can I see a demo first?</strong>
+          Yes. Book a 15-minute walkthrough and see whether the workflow fits your business.
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <div class="container">
+        <h2 style="color:white;">Stop losing paid matters to slow intake and broken follow-up.</h2>
+        <p>Start with the founding beta and get your workflow set up now.</p>
+        <div class="hero-buttons" style="justify-content:center;">
+          <a class="btn btn-primary" style="background:white;color:#111;" href="https://buy.stripe.com/cNi5kDfH48jmcZA6c7fnO00">Start Founding Beta — $299</a>
+          <a class="btn btn-secondary" style="border-color:#444;color:white;background:transparent;" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20Ai%20Demo">Book a 15-minute demo</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <strong>TraceOps Alpha Ai</strong>
+      <div>Built for investigators and legal-support operations.</div>
+      <div style="margin-top:12px;">
+        <a href="mailto:jessiemcghee1984@gmail.com">jessiemcghee1984@gmail.com</a><br />
+        <a href="tel:+12282233475">228-223-3475</a>
+      </div>
+      <div style="margin-top:16px;">© 2026 TraceOps Alpha Ai. All rights reserved.</div>
+    </div>
+  </footer>
+</body>
+</html>
