@@ -12,11 +12,6 @@
     { "source": "/pricing.html", "destination": "/pricing", "permanent": true },
     { "source": "/demo.html", "destination": "/demo", "permanent": true }
   ],
-  "rewrites": [
-    { "source": "/", "destination": "/home-v2.html" },
-    { "source": "/pricing", "destination": "/pricing-v2.html" },
-    { "source": "/demo", "destination": "/demo.html" }
-  ],
   "headers": [
     {
       "source": "/(.*)",
