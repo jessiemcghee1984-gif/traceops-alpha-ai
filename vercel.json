@@ -4,7 +4,6 @@
   "trailingSlash": false,
   "functions": {
     "api/lead.js": {
-      "runtime": "nodejs22.x",
       "maxDuration": 10
     }
   },
