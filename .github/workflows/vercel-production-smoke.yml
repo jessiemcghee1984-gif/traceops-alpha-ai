@@ -1,6 +1,8 @@
 name: Vercel Production Smoke
 
 on:
+  pull_request:
+    branches: [main]
   push:
     branches: [main]
   workflow_dispatch:
@@ -11,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: vercel-production-smoke
+  group: vercel-production-smoke-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
