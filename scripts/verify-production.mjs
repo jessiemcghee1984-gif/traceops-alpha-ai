@@ -39,6 +39,12 @@ async function verifyPage(path, expectedText) {
     pass(`${path} content marker verified`);
   }
 
+  for (const prohibited of ["buy.stripe.com", "cNi5kDfH48jmcZA6c7fnO00", "paypal.me"]) {
+    if (body.toLowerCase().includes(prohibited.toLowerCase())) {
+      fail(`${path} contains prohibited public payment destination: ${prohibited}`);
+    }
+  }
+
   const requiredHeaders = {
     "x-content-type-options": "nosniff",
     "x-frame-options": "DENY",
@@ -55,10 +61,18 @@ async function verifyPage(path, expectedText) {
   }
 
   const csp = response.headers.get("content-security-policy") || "";
-  for (const directive of ["frame-ancestors 'none'", "base-uri 'self'", "form-action 'self' https://buy.stripe.com"]) {
+  for (const directive of ["frame-ancestors 'none'", "base-uri 'self'", "form-action 'self'"]) {
     if (!csp.includes(directive)) {
       fail(`${path} CSP is missing ${directive}`);
     }
+  }
+  if (csp.includes("buy.stripe.com")) {
+    fail(`${path} CSP still permits buy.stripe.com`);
+  }
+
+  const permissions = response.headers.get("permissions-policy") || "";
+  if (!permissions.includes("payment=()")) {
+    fail(`${path} Permissions-Policy does not disable payment`);
   }
 
   pass(`${path} security headers verified`);
@@ -125,9 +139,9 @@ async function verifyLeadEndpoint() {
   }
 }
 
-await verifyPage("/", "Turn every inquiry into a controlled, trackable workflow.");
-await verifyPage("/pricing", "Pricing that starts with fit, not false promises.");
-await verifyPage("/demo", "Request your demo");
+await verifyPage("/", "checkout activation is pending owner payout verification");
+await verifyPage("/pricing", "Direct payment is temporarily disabled pending payout verification");
+await verifyPage("/demo", "No public Stripe or PayPal checkout is currently authorized");
 await verifyRedirect("/index.html", "/");
 await verifyRedirect("/pricing.html", "/pricing");
 await verifyRedirect("/demo.html", "/demo");
@@ -138,4 +152,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`\nProduction verification passed for ${baseUrl}.`);
+console.log(`\nProduction payment safeguard verification passed for ${baseUrl}.`);
