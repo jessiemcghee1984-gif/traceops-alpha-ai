@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Book a Demo | TraceOps Alpha Ai</title>
   <style>
     * { box-sizing: border-box; }
@@ -58,6 +59,10 @@
       border: none;
       cursor: pointer;
     }
+    .btn:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
     .btn-primary {
       background: #111111;
       color: white;
@@ -104,6 +109,11 @@
       grid-template-columns: 1fr;
       align-items: start;
     }
+    .form-grid {
+      display: grid;
+      gap: 0 16px;
+      grid-template-columns: 1fr;
+    }
     .card {
       background: white;
       border: 1px solid #e5e5e5;
@@ -135,12 +145,60 @@
       font-family: Arial, sans-serif;
       background: white;
     }
+    input:focus, select:focus, textarea:focus {
+      border-color: #111111;
+      outline: 3px solid rgba(17, 17, 17, 0.12);
+    }
     textarea {
       min-height: 140px;
       resize: vertical;
     }
     .field {
       margin-bottom: 18px;
+    }
+    .checkbox-field {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 0 0 16px;
+    }
+    .checkbox-field input {
+      width: 18px;
+      height: 18px;
+      margin: 3px 0 0;
+    }
+    .checkbox-field label {
+      font-weight: 400;
+      margin: 0;
+    }
+    .privacy-notice {
+      background: #fff8e6;
+      border: 1px solid #f0d58a;
+      border-radius: 12px;
+      color: #5f4700;
+      font-size: 14px;
+      margin-bottom: 18px;
+      padding: 14px 16px;
+    }
+    .form-status {
+      border-radius: 12px;
+      display: none;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 16px;
+      padding: 12px 14px;
+    }
+    .form-status.is-visible { display: block; }
+    .form-status.is-success {
+      background: #eaf8ef;
+      border: 1px solid #95d5aa;
+      color: #155d2d;
+    }
+    .form-status.is-error {
+      background: #fff0f0;
+      border: 1px solid #e5a6a6;
+      color: #8a1c1c;
     }
     .hero-buttons {
       display: flex;
@@ -151,6 +209,13 @@
     .small {
       font-size: 14px;
       color: #666;
+    }
+    .honeypot {
+      position: absolute;
+      left: -10000px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
     }
     .footer {
       border-top: 1px solid #e5e5e5;
@@ -163,6 +228,9 @@
       font-size: 18px;
       display: block;
       margin-bottom: 8px;
+    }
+    @media (min-width: 640px) {
+      .form-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (min-width: 900px) {
       .nav-links { display: flex; }
@@ -184,7 +252,7 @@
       <div class="nav-links">
         <a href="index.html">Home</a>
         <a href="pricing.html">Pricing</a>
-        <a href="demo.html">Demo</a>
+        <a href="demo.html" aria-current="page">Demo</a>
       </div>
       <a class="btn btn-primary" href="https://buy.stripe.com/cNi5kDfH48jmcZA6c7fnO00">Start Founding Beta</a>
     </div>
@@ -197,7 +265,7 @@
           <div class="eyebrow">Demo request</div>
           <h1>Book a demo and get your workflow moving.</h1>
           <div class="subheadline">
-            Tell me a little about your firm and what you need. The easiest way to start is to call, email, or send a demo request below.
+            Tell me a little about your firm and what you need. Submit the secure form, call, or email to get started.
           </div>
 
           <div class="contact-box">
@@ -223,38 +291,67 @@
         <div class="card">
           <h2>Request your demo</h2>
           <p class="small">
-            Fill this out and tap submit. On iPhone, this will open your Mail app with the details filled in.
+            Your request will be saved securely without opening another app. Required fields are marked with an asterisk.
           </p>
 
-          <form action="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20Ai%20Demo%20Request" method="post" enctype="text/plain">
-            <div class="field">
-              <label for="firstName">First name</label>
-              <input id="firstName" name="First Name" type="text" placeholder="Jessie" required />
+          <div class="privacy-notice" role="note">
+            Keep this request general. Do not submit Social Security numbers, dates of birth, payment-card data, evidence, criminal-history records, confidential case notes, or detailed allegations.
+          </div>
+
+          <form id="demoForm" action="/api/lead" method="post">
+            <div class="honeypot" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
             </div>
 
-            <div class="field">
-              <label for="lastName">Last name</label>
-              <input id="lastName" name="Last Name" type="text" placeholder="McGhee" />
+            <div class="form-grid">
+              <div class="field">
+                <label for="firstName">First name *</label>
+                <input id="firstName" name="first_name" type="text" autocomplete="given-name" maxlength="60" required />
+              </div>
+
+              <div class="field">
+                <label for="lastName">Last name</label>
+                <input id="lastName" name="last_name" type="text" autocomplete="family-name" maxlength="60" />
+              </div>
             </div>
 
-            <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="Email" type="email" placeholder="name@example.com" required />
-            </div>
+            <div class="form-grid">
+              <div class="field">
+                <label for="email">Email *</label>
+                <input id="email" name="email" type="email" autocomplete="email" maxlength="254" inputmode="email" required />
+              </div>
 
-            <div class="field">
-              <label for="phone">Phone</label>
-              <input id="phone" name="Phone" type="text" placeholder="228-223-3475" />
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" inputmode="tel" />
+              </div>
             </div>
 
             <div class="field">
               <label for="company">Company / firm</label>
-              <input id="company" name="Company" type="text" placeholder="TraceOps Investigations" />
+              <input id="company" name="company" type="text" autocomplete="organization" maxlength="100" />
+            </div>
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="contactMethod">Preferred contact method *</label>
+                <select id="contactMethod" name="contact_method" required>
+                  <option value="email">Email</option>
+                  <option value="phone">Phone call</option>
+                  <option value="text">Text message</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="countyState">City/County and state *</label>
+                <input id="countyState" name="county_state" type="text" autocomplete="address-level2" maxlength="100" placeholder="Gulfport, Mississippi" required />
+              </div>
             </div>
 
             <div class="field">
-              <label for="serviceType">Service type</label>
-              <select id="serviceType" name="Service Type">
+              <label for="serviceType">Service type *</label>
+              <select id="serviceType" name="service_requested" required>
                 <option>General Investigation</option>
                 <option>Skip Trace</option>
                 <option>Locate Services</option>
@@ -266,11 +363,26 @@
             </div>
 
             <div class="field">
-              <label for="summary">What do you need help with?</label>
-              <textarea id="summary" name="Summary" placeholder="Tell me about your current intake, follow-up, case workflow, or what you want the platform to handle." required></textarea>
+              <label for="summary">Brief non-confidential summary *</label>
+              <textarea id="summary" name="summary" minlength="10" maxlength="1000" placeholder="Describe your workflow need at a high level. Do not include confidential case details or sensitive personal data." required></textarea>
             </div>
 
-            <button class="btn btn-primary" type="submit">Submit demo request</button>
+            <div class="checkbox-field">
+              <input id="consentToContact" name="consent_to_contact" type="checkbox" required />
+              <label for="consentToContact">I consent to being contacted about this request. *</label>
+            </div>
+
+            <div class="checkbox-field">
+              <input id="privacyAcknowledged" name="privacy_acknowledged" type="checkbox" required />
+              <label for="privacyAcknowledged">I understand that this public request form must not contain sensitive or confidential case information. *</label>
+            </div>
+
+            <button id="submitButton" class="btn btn-primary" type="submit">Submit demo request</button>
+            <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+
+            <noscript>
+              <p class="small">JavaScript is required for secure form submission. Please call or email using the contact information on this page.</p>
+            </noscript>
           </form>
         </div>
       </div>
@@ -280,7 +392,7 @@
       <div class="container">
         <h2>What happens next</h2>
         <div class="section-text">
-          After you send your request, I’ll review your details and follow up about the best way to get your intake and workflow moving.
+          After you submit your request, I’ll review the non-confidential details and follow up about the best way to get your intake and workflow moving.
         </div>
       </div>
     </section>
@@ -297,5 +409,97 @@
       <div style="margin-top:16px;">© 2026 TraceOps Alpha Ai. All rights reserved.</div>
     </div>
   </footer>
+
+  <script>
+    (() => {
+      const form = document.getElementById("demoForm");
+      const submitButton = document.getElementById("submitButton");
+      const formStatus = document.getElementById("formStatus");
+      const contactMethod = document.getElementById("contactMethod");
+      const phone = document.getElementById("phone");
+
+      const showStatus = (message, type) => {
+        formStatus.textContent = message;
+        formStatus.className = `form-status is-visible is-${type}`;
+      };
+
+      const setSubmitting = (isSubmitting) => {
+        submitButton.disabled = isSubmitting;
+        submitButton.textContent = isSubmitting
+          ? "Submitting securely…"
+          : "Submit demo request";
+      };
+
+      const updatePhoneRequirement = () => {
+        const requiresPhone = contactMethod.value === "phone" || contactMethod.value === "text";
+        phone.required = requiresPhone;
+        phone.setAttribute("aria-required", String(requiresPhone));
+      };
+
+      contactMethod.addEventListener("change", updatePhoneRequirement);
+      updatePhoneRequirement();
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        updatePhoneRequirement();
+
+        if (!form.reportValidity()) {
+          return;
+        }
+
+        formStatus.className = "form-status";
+        formStatus.textContent = "";
+        setSubmitting(true);
+
+        const formData = new FormData(form);
+        const payload = {
+          first_name: String(formData.get("first_name") || ""),
+          last_name: String(formData.get("last_name") || ""),
+          email: String(formData.get("email") || ""),
+          phone: String(formData.get("phone") || ""),
+          company: String(formData.get("company") || ""),
+          contact_method: String(formData.get("contact_method") || ""),
+          county_state: String(formData.get("county_state") || ""),
+          service_requested: String(formData.get("service_requested") || ""),
+          summary: String(formData.get("summary") || ""),
+          website: String(formData.get("website") || ""),
+          consent_to_contact: formData.get("consent_to_contact") === "on",
+          privacy_acknowledged: formData.get("privacy_acknowledged") === "on",
+        };
+
+        try {
+          const response = await fetch("/api/lead", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json().catch(() => ({}));
+          if (!response.ok) {
+            throw new Error(result.error || "Your request could not be submitted.");
+          }
+
+          form.reset();
+          updatePhoneRequirement();
+          showStatus(
+            result.message || "Your demo request was received. We will follow up soon.",
+            "success",
+          );
+        } catch (error) {
+          showStatus(
+            error instanceof Error
+              ? error.message
+              : "Your request could not be submitted. Please call or email us.",
+            "error",
+          );
+        } finally {
+          setSubmitting(false);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
