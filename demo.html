@@ -1,503 +1,86 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <title>Book a Demo | TraceOps Alpha Ai</title>
+  <meta name="description" content="Request an owner-reviewed TraceOps Alpha AI demonstration." />
+  <title>Request a Demo | TraceOps Alpha AI</title>
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: #111111;
-      line-height: 1.6;
-    }
-    a { text-decoration: none; }
-    .topbar {
-      background: #111111;
-      color: white;
-      text-align: center;
-      padding: 12px 16px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    header {
-      border-bottom: 1px solid #e5e5e5;
-      background: white;
-    }
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 0;
-      gap: 16px;
-    }
-    .brand {
-      font-size: 22px;
-      font-weight: 700;
-      color: #111111;
-    }
-    .nav-links {
-      display: none;
-      gap: 18px;
-      font-size: 14px;
-    }
-    .nav-links a { color: #444; }
-    .btn {
-      display: inline-block;
-      padding: 14px 22px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 14px;
-      border: none;
-      cursor: pointer;
-    }
-    .btn:disabled {
-      cursor: wait;
-      opacity: 0.65;
-    }
-    .btn-primary {
-      background: #111111;
-      color: white;
-    }
-    .btn-secondary {
-      border: 1px solid #d4d4d4;
-      color: #111111;
-      background: white;
-    }
-    section {
-      padding: 70px 0;
-    }
-    .hero {
-      padding: 70px 0 40px;
-    }
-    .eyebrow {
-      color: #666;
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
-    }
-    h1 {
-      font-size: 42px;
-      line-height: 1.15;
-      margin: 0 0 20px;
-    }
-    h2 {
-      font-size: 30px;
-      line-height: 1.2;
-      margin: 0 0 16px;
-    }
-    .subheadline, .section-text {
-      font-size: 18px;
-      color: #555;
-      max-width: 760px;
-    }
-    .grid {
-      display: grid;
-      gap: 24px;
-    }
-    .two-col {
-      grid-template-columns: 1fr;
-      align-items: start;
-    }
-    .form-grid {
-      display: grid;
-      gap: 0 16px;
-      grid-template-columns: 1fr;
-    }
-    .card {
-      background: white;
-      border: 1px solid #e5e5e5;
-      border-radius: 20px;
-      padding: 24px;
-    }
-    .light {
-      background: #f7f7f7;
-    }
-    .contact-box {
-      background: #f7f7f7;
-      border: 1px solid #e5e5e5;
-      border-radius: 20px;
-      padding: 24px;
-      margin-top: 24px;
-    }
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 14px;
-      font-weight: 700;
-    }
-    input, select, textarea {
-      width: 100%;
-      padding: 14px 16px;
-      border: 1px solid #d4d4d4;
-      border-radius: 12px;
-      font-size: 16px;
-      font-family: Arial, sans-serif;
-      background: white;
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: #111111;
-      outline: 3px solid rgba(17, 17, 17, 0.12);
-    }
-    textarea {
-      min-height: 140px;
-      resize: vertical;
-    }
-    .field {
-      margin-bottom: 18px;
-    }
-    .checkbox-field {
-      display: grid;
-      grid-template-columns: 22px 1fr;
-      gap: 10px;
-      align-items: start;
-      margin: 0 0 16px;
-    }
-    .checkbox-field input {
-      width: 18px;
-      height: 18px;
-      margin: 3px 0 0;
-    }
-    .checkbox-field label {
-      font-weight: 400;
-      margin: 0;
-    }
-    .privacy-notice {
-      background: #fff8e6;
-      border: 1px solid #f0d58a;
-      border-radius: 12px;
-      color: #5f4700;
-      font-size: 14px;
-      margin-bottom: 18px;
-      padding: 14px 16px;
-    }
-    .form-status {
-      border-radius: 12px;
-      display: none;
-      font-size: 14px;
-      font-weight: 700;
-      margin-top: 16px;
-      padding: 12px 14px;
-    }
-    .form-status.is-visible { display: block; }
-    .form-status.is-success {
-      background: #eaf8ef;
-      border: 1px solid #95d5aa;
-      color: #155d2d;
-    }
-    .form-status.is-error {
-      background: #fff0f0;
-      border: 1px solid #e5a6a6;
-      color: #8a1c1c;
-    }
-    .hero-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 24px;
-    }
-    .small {
-      font-size: 14px;
-      color: #666;
-    }
-    .honeypot {
-      position: absolute;
-      left: -10000px;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-    }
-    .footer {
-      border-top: 1px solid #e5e5e5;
-      padding: 36px 0;
-      color: #555;
-      font-size: 14px;
-    }
-    .footer strong {
-      color: #111;
-      font-size: 18px;
-      display: block;
-      margin-bottom: 8px;
-    }
-    @media (min-width: 640px) {
-      .form-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (min-width: 900px) {
-      .nav-links { display: flex; }
-      h1 { font-size: 54px; }
-      .two-col {
-        grid-template-columns: 0.9fr 1.1fr;
-      }
-    }
+    :root{--ink:#07111f;--muted:#5d6b7b;--line:#dbe3ec;--panel:#f5f8fb;--accent:#0a66c2;--warning:#fff7df}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);line-height:1.55}a{text-decoration:none;color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 22px}.bar{background:var(--ink);color:#fff;text-align:center;padding:10px 18px;font-size:14px;font-weight:800}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}.brand{font-weight:900;font-size:22px}.links{display:none;gap:20px;color:var(--muted);font-weight:700}.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:12px;font-weight:800;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}.btn:disabled{opacity:.65;cursor:wait}.hero{padding:68px 0;background:linear-gradient(180deg,#fff,#f6f9fc)}.grid{display:grid;grid-template-columns:1fr;gap:24px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:900;color:var(--accent)}h1{font-size:44px;line-height:1.05;margin:16px 0}.lead{font-size:18px;color:var(--muted)}.notice{padding:15px 16px;border:1px solid #e7ce7a;border-radius:12px;background:var(--warning);color:#5b4300;margin:22px 0}.contact{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}label{display:block;font-weight:800;font-size:14px;margin-bottom:7px}.field{margin-bottom:17px}input,select,textarea{width:100%;padding:13px 14px;border:1px solid #cbd5df;border-radius:11px;font:inherit}textarea{min-height:130px;resize:vertical}.check{display:grid;grid-template-columns:22px 1fr;gap:9px;align-items:start;margin-bottom:15px}.check input{width:18px;height:18px;margin-top:3px}.check label{font-weight:500;margin:0}.privacy{padding:14px 15px;border-radius:12px;background:#eef5fc;color:#31455d;font-size:14px;margin-bottom:18px}.status{display:none;margin-top:15px;padding:12px 14px;border-radius:12px;font-weight:700}.status.show{display:block}.status.success{background:#eaf8ef;color:#155d2d;border:1px solid #95d5aa}.status.error{background:#fff0f0;color:#8a1c1c;border:1px solid #e5a6a6}.honeypot{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}.footer{padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}.footer-grid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}@media(min-width:840px){.links{display:flex}.grid{grid-template-columns:.85fr 1.15fr}h1{font-size:56px}}
   </style>
 </head>
 <body>
-  <div class="topbar">
-    Founding Beta now open — first 10 firms get setup and onboarding included.
-  </div>
-
-  <header>
-    <div class="container nav">
-      <a href="index.html" class="brand">TraceOps Alpha Ai</a>
-      <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="pricing.html">Pricing</a>
-        <a href="demo.html" aria-current="page">Demo</a>
-      </div>
-      <a class="btn btn-primary" href="https://buy.stripe.com/cNi5kDfH48jmcZA6c7fnO00">Start Founding Beta</a>
-    </div>
+  <div class="bar">Applications and demos are active. Public checkout remains disabled pending owner payout verification.</div>
+  <header class="wrap nav">
+    <a class="brand" href="/">TraceOps Alpha AI</a>
+    <nav class="links"><a href="/">Home</a><a href="/pricing">Pricing</a><a href="/demo" aria-current="page">Demo</a></nav>
+    <a class="btn primary" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20AI%20Demo">Email owner</a>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container grid two-col">
-        <div>
-          <div class="eyebrow">Demo request</div>
-          <h1>Book a demo and get your workflow moving.</h1>
-          <div class="subheadline">
-            Tell me a little about your firm and what you need. Submit the secure form, call, or email to get started.
-          </div>
-
-          <div class="contact-box">
-            <h2>Direct contact</h2>
-            <p><strong>Email:</strong><br />
-              <a href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20Ai%20Demo">jessiemcghee1984@gmail.com</a>
-            </p>
-            <p><strong>Phone:</strong><br />
-              <a href="tel:+12282233475">228-223-3475</a>
-            </p>
-
-            <div class="hero-buttons">
-              <a class="btn btn-primary" href="tel:+12282233475">Call now</a>
-              <a class="btn btn-secondary" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20Ai%20Demo">Email now</a>
-            </div>
-
-            <p class="small" style="margin-top:16px;">
-              Best for private investigators, legal-support teams, skip-trace operators, and firms that need tighter intake and faster follow-up.
-            </p>
-          </div>
+  <main class="hero">
+    <div class="wrap grid">
+      <section>
+        <div class="eyebrow">Owner-reviewed intake</div>
+        <h1>Request a demo and workflow review.</h1>
+        <p class="lead">Tell us about your firm and the operational problem you want TraceOps to solve. Jessie McGhee reviews requests before pricing, onboarding, or payment instructions are issued.</p>
+        <div class="notice"><strong>Payment safeguard:</strong> do not send card details or money through this form. No public Stripe or PayPal checkout is currently authorized.</div>
+        <div class="contact">
+          <a class="btn primary" href="tel:+12282233475">Call 228-223-3475</a>
+          <a class="btn" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20AI%20Demo">Email Jessie</a>
         </div>
+      </section>
 
-        <div class="card">
-          <h2>Request your demo</h2>
-          <p class="small">
-            Your request will be saved securely without opening another app. Required fields are marked with an asterisk.
-          </p>
-
-          <div class="privacy-notice" role="note">
-            Keep this request general. Do not submit Social Security numbers, dates of birth, payment-card data, evidence, criminal-history records, confidential case notes, or detailed allegations.
-          </div>
-
-          <form id="demoForm" action="/api/lead" method="post">
-            <div class="honeypot" aria-hidden="true">
-              <label for="website">Website</label>
-              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
-            </div>
-
-            <div class="form-grid">
-              <div class="field">
-                <label for="firstName">First name *</label>
-                <input id="firstName" name="first_name" type="text" autocomplete="given-name" maxlength="60" required />
-              </div>
-
-              <div class="field">
-                <label for="lastName">Last name</label>
-                <input id="lastName" name="last_name" type="text" autocomplete="family-name" maxlength="60" />
-              </div>
-            </div>
-
-            <div class="form-grid">
-              <div class="field">
-                <label for="email">Email *</label>
-                <input id="email" name="email" type="email" autocomplete="email" maxlength="254" inputmode="email" required />
-              </div>
-
-              <div class="field">
-                <label for="phone">Phone</label>
-                <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" inputmode="tel" />
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="company">Company / firm</label>
-              <input id="company" name="company" type="text" autocomplete="organization" maxlength="100" />
-            </div>
-
-            <div class="form-grid">
-              <div class="field">
-                <label for="contactMethod">Preferred contact method *</label>
-                <select id="contactMethod" name="contact_method" required>
-                  <option value="email">Email</option>
-                  <option value="phone">Phone call</option>
-                  <option value="text">Text message</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label for="countyState">City/County and state *</label>
-                <input id="countyState" name="county_state" type="text" autocomplete="address-level2" maxlength="100" placeholder="Gulfport, Mississippi" required />
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="serviceType">Service type *</label>
-              <select id="serviceType" name="service_requested" required>
-                <option>General Investigation</option>
-                <option>Skip Trace</option>
-                <option>Locate Services</option>
-                <option>Legal Support</option>
-                <option>Process Service</option>
-                <option>Case Intake Workflow</option>
-                <option>Custom Demo</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="summary">Brief non-confidential summary *</label>
-              <textarea id="summary" name="summary" minlength="10" maxlength="1000" placeholder="Describe your workflow need at a high level. Do not include confidential case details or sensitive personal data." required></textarea>
-            </div>
-
-            <div class="checkbox-field">
-              <input id="consentToContact" name="consent_to_contact" type="checkbox" required />
-              <label for="consentToContact">I consent to being contacted about this request. *</label>
-            </div>
-
-            <div class="checkbox-field">
-              <input id="privacyAcknowledged" name="privacy_acknowledged" type="checkbox" required />
-              <label for="privacyAcknowledged">I understand that this public request form must not contain sensitive or confidential case information. *</label>
-            </div>
-
-            <button id="submitButton" class="btn btn-primary" type="submit">Submit demo request</button>
-            <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
-
-            <noscript>
-              <p class="small">JavaScript is required for secure form submission. Please call or email using the contact information on this page.</p>
-            </noscript>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <section class="light">
-      <div class="container">
-        <h2>What happens next</h2>
-        <div class="section-text">
-          After you submit your request, I’ll review the non-confidential details and follow up about the best way to get your intake and workflow moving.
-        </div>
-      </div>
-    </section>
+      <section class="card">
+        <h2>Request your demo</h2>
+        <p class="privacy">Keep this request general. Do not include Social Security numbers, dates of birth, payment-card data, evidence, criminal-history records, confidential case notes, or detailed allegations.</p>
+        <form id="demoForm" action="/api/lead" method="post">
+          <div class="honeypot" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+          <div class="field"><label for="firstName">First name *</label><input id="firstName" name="first_name" type="text" autocomplete="given-name" maxlength="60" required /></div>
+          <div class="field"><label for="lastName">Last name</label><input id="lastName" name="last_name" type="text" autocomplete="family-name" maxlength="60" /></div>
+          <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required /></div>
+          <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" /></div>
+          <div class="field"><label for="company">Company / firm</label><input id="company" name="company" type="text" autocomplete="organization" maxlength="100" /></div>
+          <div class="field"><label for="contactMethod">Preferred contact method *</label><select id="contactMethod" name="contact_method" required><option value="email">Email</option><option value="phone">Phone call</option><option value="text">Text message</option></select></div>
+          <div class="field"><label for="countyState">City/County and state *</label><input id="countyState" name="county_state" type="text" maxlength="100" placeholder="Gulfport, Mississippi" required /></div>
+          <div class="field"><label for="serviceType">Service type *</label><select id="serviceType" name="service_requested" required><option>Case Intake Workflow</option><option>General Investigation</option><option>Skip Trace</option><option>Locate Services</option><option>Legal Support</option><option>Process Service</option><option>Custom Demo</option></select></div>
+          <div class="field"><label for="summary">Brief non-confidential summary *</label><textarea id="summary" name="summary" minlength="10" maxlength="1000" required></textarea></div>
+          <div class="check"><input id="consent" name="consent_to_contact" type="checkbox" required /><label for="consent">I consent to being contacted about this request. *</label></div>
+          <div class="check"><input id="privacy" name="privacy_acknowledged" type="checkbox" required /><label for="privacy">I understand this public form must not contain sensitive or confidential information. *</label></div>
+          <button id="submitButton" class="btn primary" type="submit">Submit demo request</button>
+          <div id="formStatus" class="status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+    </div>
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <strong>TraceOps Alpha Ai</strong>
-      <div>Built for investigators and legal-support operations.</div>
-      <div style="margin-top:12px;">
-        <a href="mailto:jessiemcghee1984@gmail.com">jessiemcghee1984@gmail.com</a><br />
-        <a href="tel:+12282233475">228-223-3475</a>
-      </div>
-      <div style="margin-top:16px;">© 2026 TraceOps Alpha Ai. All rights reserved.</div>
-    </div>
-  </footer>
+  <footer class="footer"><div class="wrap footer-grid"><div><strong>TraceOps Alpha AI</strong><br />Operated by Alpha Dog P.I. &amp; Security LLC.</div><div><a href="mailto:jessiemcghee1984@gmail.com">jessiemcghee1984@gmail.com</a><br /><a href="tel:+12282233475">228-223-3475</a></div><div>Owner: Jessie McGhee<br />© 2026 TraceOps Alpha AI</div></div></footer>
 
   <script>
     (() => {
-      const form = document.getElementById("demoForm");
-      const submitButton = document.getElementById("submitButton");
-      const formStatus = document.getElementById("formStatus");
-      const contactMethod = document.getElementById("contactMethod");
-      const phone = document.getElementById("phone");
-
-      const showStatus = (message, type) => {
-        formStatus.textContent = message;
-        formStatus.className = `form-status is-visible is-${type}`;
-      };
-
-      const setSubmitting = (isSubmitting) => {
-        submitButton.disabled = isSubmitting;
-        submitButton.textContent = isSubmitting
-          ? "Submitting securely…"
-          : "Submit demo request";
-      };
-
-      const updatePhoneRequirement = () => {
-        const requiresPhone = contactMethod.value === "phone" || contactMethod.value === "text";
-        phone.required = requiresPhone;
-        phone.setAttribute("aria-required", String(requiresPhone));
-      };
-
-      contactMethod.addEventListener("change", updatePhoneRequirement);
-      updatePhoneRequirement();
-
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-        updatePhoneRequirement();
-
-        if (!form.reportValidity()) {
-          return;
-        }
-
-        formStatus.className = "form-status";
-        formStatus.textContent = "";
-        setSubmitting(true);
-
-        const formData = new FormData(form);
-        const payload = {
-          first_name: String(formData.get("first_name") || ""),
-          last_name: String(formData.get("last_name") || ""),
-          email: String(formData.get("email") || ""),
-          phone: String(formData.get("phone") || ""),
-          company: String(formData.get("company") || ""),
-          contact_method: String(formData.get("contact_method") || ""),
-          county_state: String(formData.get("county_state") || ""),
-          service_requested: String(formData.get("service_requested") || ""),
-          summary: String(formData.get("summary") || ""),
-          website: String(formData.get("website") || ""),
-          consent_to_contact: formData.get("consent_to_contact") === "on",
-          privacy_acknowledged: formData.get("privacy_acknowledged") === "on",
-        };
-
+      const form = document.getElementById('demoForm');
+      const button = document.getElementById('submitButton');
+      const status = document.getElementById('formStatus');
+      const contact = document.getElementById('contactMethod');
+      const phone = document.getElementById('phone');
+      const requirePhone = () => { phone.required = contact.value === 'phone' || contact.value === 'text'; };
+      contact.addEventListener('change', requirePhone); requirePhone();
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault(); requirePhone(); if (!form.reportValidity()) return;
+        button.disabled = true; button.textContent = 'Submitting securely…'; status.className = 'status';
+        const data = new FormData(form);
+        const payload = Object.fromEntries(data.entries());
+        payload.consent_to_contact = data.get('consent_to_contact') === 'on';
+        payload.privacy_acknowledged = data.get('privacy_acknowledged') === 'on';
         try {
-          const response = await fetch("/api/lead", {
-            method: "POST",
-            credentials: "same-origin",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-          });
-
+          const response = await fetch('/api/lead', {method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
           const result = await response.json().catch(() => ({}));
-          if (!response.ok) {
-            throw new Error(result.error || "Your request could not be submitted.");
-          }
-
-          form.reset();
-          updatePhoneRequirement();
-          showStatus(
-            result.message || "Your demo request was received. We will follow up soon.",
-            "success",
-          );
+          if (!response.ok) throw new Error(result.error || 'Your request could not be submitted.');
+          form.reset(); requirePhone(); status.textContent = result.message || 'Your request was received. Jessie will follow up.'; status.className = 'status show success';
         } catch (error) {
-          showStatus(
-            error instanceof Error
-              ? error.message
-              : "Your request could not be submitted. Please call or email us.",
-            "error",
-          );
-        } finally {
-          setSubmitting(false);
-        }
+          status.textContent = error instanceof Error ? error.message : 'Please call or email us.'; status.className = 'status show error';
+        } finally { button.disabled = false; button.textContent = 'Submit demo request'; }
       });
     })();
   </script>
