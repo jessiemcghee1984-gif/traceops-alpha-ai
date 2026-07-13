@@ -61,7 +61,7 @@ async function verifyPage(path, expectedText) {
   }
 
   const csp = response.headers.get("content-security-policy") || "";
-  for (const directive of ["frame-ancestors 'none'", "base-uri 'self'", "form-action 'self'"]) {
+  for (const directive of ["frame-ancestors 'none'", "base-uri 'self'", "form-action 'self'", "object-src 'none'"]) {
     if (!csp.includes(directive)) {
       fail(`${path} CSP is missing ${directive}`);
     }
@@ -142,9 +142,11 @@ async function verifyLeadEndpoint() {
 await verifyPage("/", "checkout activation is pending owner payout verification");
 await verifyPage("/pricing", "Direct payment is temporarily disabled pending payout verification");
 await verifyPage("/demo", "No public Stripe or PayPal checkout is currently authorized");
+await verifyPage("/platform", "Controlled demonstration environment");
 await verifyRedirect("/index.html", "/");
 await verifyRedirect("/pricing.html", "/pricing");
 await verifyRedirect("/demo.html", "/demo");
+await verifyRedirect("/platform.html", "/platform");
 await verifyLeadEndpoint();
 
 if (failures.length > 0) {
