@@ -25,8 +25,13 @@ function pass(message) {
   console.log(`PASS: ${message}`);
 }
 
+function normalizeHtmlText(value) {
+  return value.replaceAll("&amp;", "&");
+}
+
 for (const path of customerPages) {
   const body = await readFile(path, "utf8");
+  const normalizedBody = normalizeHtmlText(body);
 
   for (const value of prohibited) {
     if (body.toLowerCase().includes(value.toLowerCase())) {
@@ -34,11 +39,11 @@ for (const path of customerPages) {
     }
   }
 
-  if (!body.includes("Jessie McGhee")) {
+  if (!normalizedBody.includes("Jessie McGhee")) {
     fail(`${path} does not identify Jessie McGhee as owner or reviewer`);
   }
 
-  if (!body.includes("Alpha Dog P.I. &amp; Security LLC")) {
+  if (!normalizedBody.includes("Alpha Dog P.I. & Security LLC")) {
     fail(`${path} does not identify Alpha Dog P.I. & Security LLC`);
   }
 
