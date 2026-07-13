@@ -2,87 +2,81 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta name="description" content="Request an owner-reviewed TraceOps Alpha AI demonstration." />
+  <meta name="description" content="Request an owner-reviewed TraceOps Alpha AI platform demonstration." />
+  <meta name="theme-color" content="#06100d" />
   <title>Request a Demo | TraceOps Alpha AI</title>
   <style>
-    :root{--ink:#07111f;--muted:#5d6b7b;--line:#dbe3ec;--panel:#f5f8fb;--accent:#0a66c2;--warning:#fff7df}
-    *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);line-height:1.55}a{text-decoration:none;color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 22px}.bar{background:var(--ink);color:#fff;text-align:center;padding:10px 18px;font-size:14px;font-weight:800}.nav{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0;border-bottom:1px solid var(--line)}.brand{font-weight:900;font-size:22px}.links{display:none;gap:20px;color:var(--muted);font-weight:700}.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border-radius:12px;font-weight:800;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}.btn:disabled{opacity:.65;cursor:wait}.hero{padding:68px 0;background:linear-gradient(180deg,#fff,#f6f9fc)}.grid{display:grid;grid-template-columns:1fr;gap:24px}.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px}.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:900;color:var(--accent)}h1{font-size:44px;line-height:1.05;margin:16px 0}.lead{font-size:18px;color:var(--muted)}.notice{padding:15px 16px;border:1px solid #e7ce7a;border-radius:12px;background:var(--warning);color:#5b4300;margin:22px 0}.contact{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}label{display:block;font-weight:800;font-size:14px;margin-bottom:7px}.field{margin-bottom:17px}input,select,textarea{width:100%;padding:13px 14px;border:1px solid #cbd5df;border-radius:11px;font:inherit}textarea{min-height:130px;resize:vertical}.check{display:grid;grid-template-columns:22px 1fr;gap:9px;align-items:start;margin-bottom:15px}.check input{width:18px;height:18px;margin-top:3px}.check label{font-weight:500;margin:0}.privacy{padding:14px 15px;border-radius:12px;background:#eef5fc;color:#31455d;font-size:14px;margin-bottom:18px}.status{display:none;margin-top:15px;padding:12px 14px;border-radius:12px;font-weight:700}.status.show{display:block}.status.success{background:#eaf8ef;color:#155d2d;border:1px solid #95d5aa}.status.error{background:#fff0f0;color:#8a1c1c;border:1px solid #e5a6a6}.honeypot{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}.footer{padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-size:14px}.footer-grid{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}@media(min-width:840px){.links{display:flex}.grid{grid-template-columns:.85fr 1.15fr}h1{font-size:56px}}
+    :root{--bg:#050b0a;--panel:#0d1916;--panel2:#11211d;--line:#20362f;--text:#effaf5;--muted:#92a8a0;--green:#4ee1a0;--amber:#ffc66d;--red:#ff8f98;--shadow:0 28px 90px rgba(0,0,0,.36)}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 72% -10%,rgba(78,225,160,.16),transparent 35%),linear-gradient(180deg,#050b0a,#07110e 52%,#050908);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}a{text-decoration:none;color:inherit}.wrap{width:min(1120px,calc(100% - 34px));margin:auto}.bar{background:#0b1713;border-bottom:1px solid var(--line);color:#b8c9c2;text-align:center;padding:9px 18px;font-size:12px}.bar strong{color:var(--amber)}.header{position:sticky;top:0;z-index:20;background:rgba(5,11,10,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(32,54,47,.8)}.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:11px;font-weight:950}.mark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(145deg,var(--green),#77efbd);color:#07110e;font-size:13px;box-shadow:0 10px 30px rgba(78,225,160,.15)}.brand small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}.links{display:flex;gap:24px;color:#b6c8c1;font-size:13px;font-weight:800}.links a:hover{color:var(--green)}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 17px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-weight:900;font-size:13px;cursor:pointer}.btn.primary{background:linear-gradient(135deg,var(--green),#74edba);color:#06110d;border-color:transparent}.btn:disabled{opacity:.65;cursor:wait}.hero{padding:68px 0 86px}.grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:42px;align-items:start}.copy{position:sticky;top:112px}.eyebrow{color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:.17em;font-weight:950}.copy h1{font-size:clamp(44px,5.8vw,66px);line-height:.98;letter-spacing:-.055em;margin:18px 0}.copy p{color:#a7bbb3;font-size:17px}.notice{border:1px solid rgba(255,198,109,.28);background:rgba(255,198,109,.07);color:#f1d7aa;border-radius:16px;padding:15px;margin:22px 0;font-size:12px}.notice strong{color:#ffe5b8}.contact{display:flex;gap:10px;flex-wrap:wrap}.trust{margin-top:26px;display:grid;gap:10px}.trust div{display:flex;gap:10px;color:var(--muted);font-size:12px}.trust span{width:22px;height:22px;border-radius:8px;display:grid;place-items:center;background:rgba(78,225,160,.08);border:1px solid rgba(78,225,160,.22);color:var(--green);font-weight:950;flex:0 0 auto}.card{border:1px solid var(--line);background:linear-gradient(145deg,rgba(17,33,29,.97),rgba(9,19,16,.97));border-radius:25px;padding:28px;box-shadow:var(--shadow)}.card h2{margin:0 0 7px;font-size:26px}.card>p{margin:0 0 20px;color:var(--muted);font-size:13px}.privacy{border:1px solid var(--line);background:#0a1512;border-radius:14px;padding:13px;color:#a9bbb4;font-size:11px;margin-bottom:20px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{margin-bottom:15px}.field.full{grid-column:1/-1}label{display:block;font-size:12px;font-weight:900;margin-bottom:7px;color:#c9d9d3}input,select,textarea{width:100%;border:1px solid var(--line);background:#07110e;color:var(--text);border-radius:12px;padding:12px 13px;font:inherit}input:focus,select:focus,textarea:focus{outline:2px solid rgba(78,225,160,.3);border-color:var(--green)}select{color-scheme:dark}textarea{min-height:125px;resize:vertical}.checks{display:grid;gap:11px;margin:4px 0 18px}.check{display:grid;grid-template-columns:20px 1fr;gap:9px;align-items:start}.check input{width:17px;height:17px;margin-top:2px}.check label{font-weight:500;margin:0;color:var(--muted);font-size:11px}.status{display:none;margin-top:14px;padding:12px 13px;border-radius:12px;font-size:12px;font-weight:800}.status.show{display:block}.status.success{background:rgba(78,225,160,.09);color:#9af0c7;border:1px solid rgba(78,225,160,.25)}.status.error{background:rgba(255,143,152,.08);color:#ffb3ba;border:1px solid rgba(255,143,152,.25)}.honeypot{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}.footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:12px}.footer-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}.footer strong{color:var(--text)}
+    @media(max-width:900px){.links{display:none}.grid{grid-template-columns:1fr}.copy{position:static}.hero{padding-top:52px}.copy h1{max-width:680px}}
+    @media(max-width:580px){.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.card{padding:21px}.copy h1{font-size:46px}.brand small{display:none}.nav .btn{padding:0 12px}.hero{padding-bottom:65px}}
   </style>
 </head>
 <body>
-  <div class="bar">Applications and demos are active. Public checkout remains disabled pending owner payout verification.</div>
-  <header class="wrap nav">
-    <a class="brand" href="/">TraceOps Alpha AI</a>
-    <nav class="links"><a href="/">Home</a><a href="/pricing">Pricing</a><a href="/demo" aria-current="page">Demo</a></nav>
-    <a class="btn primary" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20AI%20Demo">Email owner</a>
-  </header>
-
-  <main class="hero">
-    <div class="wrap grid">
-      <section>
-        <div class="eyebrow">Owner-reviewed intake</div>
-        <h1>Request a demo and workflow review.</h1>
-        <p class="lead">Tell us about your firm and the operational problem you want TraceOps to solve. Jessie McGhee reviews requests before pricing, onboarding, or payment instructions are issued.</p>
-        <div class="notice"><strong>Payment safeguard:</strong> do not send card details or money through this form. No public Stripe or PayPal checkout is currently authorized.</div>
-        <div class="contact">
-          <a class="btn primary" href="tel:+12282233475">Call 228-223-3475</a>
-          <a class="btn" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20AI%20Demo">Email Jessie</a>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2>Request your demo</h2>
-        <p class="privacy">Keep this request general. Do not include Social Security numbers, dates of birth, payment-card data, evidence, criminal-history records, confidential case notes, or detailed allegations.</p>
-        <form id="demoForm" action="/api/lead" method="post">
-          <div class="honeypot" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
-          <div class="field"><label for="firstName">First name *</label><input id="firstName" name="first_name" type="text" autocomplete="given-name" maxlength="60" required /></div>
-          <div class="field"><label for="lastName">Last name</label><input id="lastName" name="last_name" type="text" autocomplete="family-name" maxlength="60" /></div>
-          <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required /></div>
-          <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" /></div>
-          <div class="field"><label for="company">Company / firm</label><input id="company" name="company" type="text" autocomplete="organization" maxlength="100" /></div>
-          <div class="field"><label for="contactMethod">Preferred contact method *</label><select id="contactMethod" name="contact_method" required><option value="email">Email</option><option value="phone">Phone call</option><option value="text">Text message</option></select></div>
-          <div class="field"><label for="countyState">City/County and state *</label><input id="countyState" name="county_state" type="text" maxlength="100" placeholder="Gulfport, Mississippi" required /></div>
-          <div class="field"><label for="serviceType">Service type *</label><select id="serviceType" name="service_requested" required><option>Case Intake Workflow</option><option>General Investigation</option><option>Skip Trace</option><option>Locate Services</option><option>Legal Support</option><option>Process Service</option><option>Custom Demo</option></select></div>
-          <div class="field"><label for="summary">Brief non-confidential summary *</label><textarea id="summary" name="summary" minlength="10" maxlength="1000" required></textarea></div>
-          <div class="check"><input id="consent" name="consent_to_contact" type="checkbox" required /><label for="consent">I consent to being contacted about this request. *</label></div>
-          <div class="check"><input id="privacy" name="privacy_acknowledged" type="checkbox" required /><label for="privacy">I understand this public form must not contain sensitive or confidential information. *</label></div>
-          <button id="submitButton" class="btn primary" type="submit">Submit demo request</button>
-          <div id="formStatus" class="status" role="status" aria-live="polite"></div>
-        </form>
-      </section>
-    </div>
-  </main>
-
-  <footer class="footer"><div class="wrap footer-grid"><div><strong>TraceOps Alpha AI</strong><br />Operated by Alpha Dog P.I. &amp; Security LLC.</div><div><a href="mailto:jessiemcghee1984@gmail.com">jessiemcghee1984@gmail.com</a><br /><a href="tel:+12282233475">228-223-3475</a></div><div>Owner: Jessie McGhee<br />© 2026 TraceOps Alpha AI</div></div></footer>
-
-  <script>
-    (() => {
-      const form = document.getElementById('demoForm');
-      const button = document.getElementById('submitButton');
-      const status = document.getElementById('formStatus');
-      const contact = document.getElementById('contactMethod');
-      const phone = document.getElementById('phone');
-      const requirePhone = () => { phone.required = contact.value === 'phone' || contact.value === 'text'; };
-      contact.addEventListener('change', requirePhone); requirePhone();
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault(); requirePhone(); if (!form.reportValidity()) return;
-        button.disabled = true; button.textContent = 'Submitting securely…'; status.className = 'status';
-        const data = new FormData(form);
-        const payload = Object.fromEntries(data.entries());
-        payload.consent_to_contact = data.get('consent_to_contact') === 'on';
-        payload.privacy_acknowledged = data.get('privacy_acknowledged') === 'on';
-        try {
-          const response = await fetch('/api/lead', {method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-          const result = await response.json().catch(() => ({}));
-          if (!response.ok) throw new Error(result.error || 'Your request could not be submitted.');
-          form.reset(); requirePhone(); status.textContent = result.message || 'Your request was received. Jessie will follow up.'; status.className = 'status show success';
-        } catch (error) {
-          status.textContent = error instanceof Error ? error.message : 'Please call or email us.'; status.className = 'status show error';
-        } finally { button.disabled = false; button.textContent = 'Submit demo request'; }
-      });
-    })();
-  </script>
+<div class="bar">Applications and demonstrations are active. <strong>No public Stripe or PayPal checkout is currently authorized.</strong></div>
+<header class="header"><div class="wrap nav"><a class="brand" href="/"><span class="mark">TO</span><span>TraceOps Alpha AI<small>Secure case operations</small></span></a><nav class="links"><a href="/">Home</a><a href="/platform">Platform preview</a><a href="/pricing">Pricing</a><a href="/demo" aria-current="page">Demo</a></nav><a class="btn primary" href="/platform">Explore platform</a></div></header>
+<main class="hero"><div class="wrap grid">
+  <section class="copy"><div class="eyebrow">Owner-reviewed access</div><h1>Request the serious version of the platform.</h1><p>Tell us what your firm needs to control: intake, case movement, evidence, field work, reporting, owner oversight, or a complete operational workflow. Jessie McGhee reviews each request before pricing, onboarding, or payment instructions are issued.</p><div class="notice"><strong>Payment safeguard:</strong> do not send card details or money through this form. No public payment destination is currently approved for use.</div><div class="contact"><a class="btn primary" href="tel:+12282233475">Call 228-223-3475</a><a class="btn" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20AI%20Demo">Email Jessie</a></div><div class="trust"><div><span>✓</span>Public form accepts only non-confidential business and workflow information.</div><div><span>✓</span>Protected case, identity, and evidence data belongs in the private application environment.</div><div><span>✓</span>Legal and operational conclusions remain subject to qualified human review.</div></div></section>
+  <section class="card"><h2>Request your demonstration</h2><p>Use this form for a general workflow discussion. Required fields are marked with an asterisk.</p><div class="privacy">Do not include Social Security numbers, dates of birth, payment-card data, passwords, evidence, criminal-history records, confidential case notes, medical records, protected child information, or detailed allegations.</div>
+    <form id="demoForm" action="/api/lead" method="post">
+      <div class="honeypot" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+      <div class="formgrid">
+        <div class="field"><label for="firstName">First name *</label><input id="firstName" name="first_name" type="text" autocomplete="given-name" maxlength="60" required /></div>
+        <div class="field"><label for="lastName">Last name</label><input id="lastName" name="last_name" type="text" autocomplete="family-name" maxlength="60" /></div>
+        <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required /></div>
+        <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40" /></div>
+        <div class="field"><label for="company">Company / firm</label><input id="company" name="company" type="text" autocomplete="organization" maxlength="100" /></div>
+        <div class="field"><label for="contactMethod">Preferred contact method *</label><select id="contactMethod" name="contact_method" required><option value="email">Email</option><option value="phone">Phone call</option><option value="text">Text message</option></select></div>
+        <div class="field"><label for="countyState">City/County and state *</label><input id="countyState" name="county_state" type="text" maxlength="100" placeholder="Gulfport, Mississippi" required /></div>
+        <div class="field"><label for="serviceType">Primary workflow *</label><select id="serviceType" name="service_requested" required><option>Case Intake Workflow</option><option>General Investigation</option><option>Skip Trace</option><option>Locate Services</option><option>Legal Support</option><option>Process Service</option><option>Evidence Management</option><option>Field Operations</option><option>Owner Command Center</option><option>Custom Demonstration</option></select></div>
+        <div class="field full"><label for="summary">Brief non-confidential summary *</label><textarea id="summary" name="summary" minlength="10" maxlength="1000" placeholder="Describe the operational problem, desired workflow, team size, and timeline without including protected case details." required></textarea></div>
+      </div>
+      <div class="checks"><div class="check"><input id="consent" name="consent_to_contact" type="checkbox" required /><label for="consent">I consent to being contacted about this request. *</label></div><div class="check"><input id="privacy" name="privacy_acknowledged" type="checkbox" required /><label for="privacy">I understand this public form must not contain sensitive, restricted, or confidential information. *</label></div></div>
+      <button id="submitButton" class="btn primary" type="submit">Submit secure demo request</button><div id="formStatus" class="status" role="status" aria-live="polite"></div>
+    </form>
+  </section>
+</div></main>
+<footer class="footer"><div class="wrap footer-grid"><div><strong>TraceOps Alpha AI</strong><br/>Operated by Alpha Dog P.I. & Security LLC.</div><div><a href="/platform">Open the synthetic platform preview</a><br/><a href="/pricing">Review commercial options</a></div><div><a href="mailto:jessiemcghee1984@gmail.com">jessiemcghee1984@gmail.com</a><br/><a href="tel:+12282233475">228-223-3475</a></div><div>Owner: Jessie McGhee<br/>© 2026 TraceOps Alpha AI</div></div></footer>
+<script>
+(() => {
+  const form = document.getElementById('demoForm');
+  const button = document.getElementById('submitButton');
+  const status = document.getElementById('formStatus');
+  const contact = document.getElementById('contactMethod');
+  const phone = document.getElementById('phone');
+  const requirePhone = () => { phone.required = contact.value === 'phone' || contact.value === 'text'; };
+  contact.addEventListener('change', requirePhone);
+  requirePhone();
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    requirePhone();
+    if (!form.reportValidity()) return;
+    button.disabled = true;
+    button.textContent = 'Submitting securely…';
+    status.className = 'status';
+    const data = new FormData(form);
+    const payload = Object.fromEntries(data.entries());
+    payload.consent_to_contact = data.get('consent_to_contact') === 'on';
+    payload.privacy_acknowledged = data.get('privacy_acknowledged') === 'on';
+    try {
+      const response = await fetch('/api/lead', {method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || 'Your request could not be submitted.');
+      form.reset();
+      requirePhone();
+      status.textContent = result.message || 'Your request was received. Jessie will follow up.';
+      status.className = 'status show success';
+    } catch (error) {
+      status.textContent = error instanceof Error ? error.message : 'Please call or email us.';
+      status.className = 'status show error';
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Submit secure demo request';
+    }
+  });
+})();
+</script>
 </body>
 </html>
