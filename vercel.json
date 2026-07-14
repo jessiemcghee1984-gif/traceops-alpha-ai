@@ -11,7 +11,10 @@
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/pricing.html", "destination": "/pricing", "permanent": true },
     { "source": "/demo.html", "destination": "/demo", "permanent": true },
-    { "source": "/platform.html", "destination": "/platform", "permanent": true }
+    { "source": "/platform.html", "destination": "/platform", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
+    { "source": "/terms.html", "destination": "/terms", "permanent": true },
+    { "source": "/trust.html", "destination": "/trust", "permanent": true }
   ],
   "headers": [
     {
@@ -30,6 +33,12 @@
       "source": "/api/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "no-store, max-age=0" }
+      ]
+    },
+    {
+      "source": "/(robots.txt|sitemap.xml|.well-known/security.txt)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, s-maxage=3600" }
       ]
     }
   ]

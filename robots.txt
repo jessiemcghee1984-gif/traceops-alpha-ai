@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://traceops-alpha-ai.vercel.app/sitemap.xml

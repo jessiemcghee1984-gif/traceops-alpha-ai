@@ -4,39 +4,56 @@ const THREE_MIN_API_URL =
 const MAX_BODY_BYTES = 16 * 1024;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
+const UPSTREAM_TIMEOUT_MS = 8_000;
 const rateLimitBuckets = new Map();
 
 const ALLOWED_CONTACT_METHODS = new Set(["email", "phone", "text"]);
 const ALLOWED_SERVICES = new Set([
+  "Case Intake Workflow",
   "General Investigation",
   "Skip Trace",
   "Locate Services",
   "Legal Support",
   "Process Service",
-  "Case Intake Workflow",
+  "Evidence Management",
+  "Field Operations",
+  "Owner Command Center",
+  "Custom Demonstration",
+  // Backward compatibility for older public forms.
   "Custom Demo",
 ]);
 
-function setSecurityHeaders(response) {
+function setSecurityHeaders(response, requestId) {
   response.setHeader("Cache-Control", "no-store, max-age=0");
   response.setHeader("Content-Type", "application/json; charset=utf-8");
   response.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
   response.setHeader("X-Content-Type-Options", "nosniff");
+  response.setHeader("X-Request-Id", requestId);
+}
+
+function makeRequestId() {
+  return `lead_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
 }
 
 function getClientIp(request) {
   const forwarded = request.headers["x-forwarded-for"];
-  if (Array.isArray(forwarded)) {
-    return forwarded[0] || "unknown";
-  }
+  if (Array.isArray(forwarded)) return forwarded[0] || "unknown";
   if (typeof forwarded === "string" && forwarded.length > 0) {
     return forwarded.split(",")[0].trim();
   }
   return request.socket?.remoteAddress || "unknown";
 }
 
+function pruneRateLimitBuckets(now) {
+  if (rateLimitBuckets.size < 500) return;
+  for (const [key, bucket] of rateLimitBuckets.entries()) {
+    if (bucket.resetAt <= now) rateLimitBuckets.delete(key);
+  }
+}
+
 function checkRateLimit(ipAddress) {
   const now = Date.now();
+  pruneRateLimitBuckets(now);
   const current = rateLimitBuckets.get(ipAddress);
 
   if (!current || current.resetAt <= now) {
@@ -60,15 +77,11 @@ function checkRateLimit(ipAddress) {
 
 function isSameOriginRequest(request) {
   const fetchSite = request.headers["sec-fetch-site"];
-  if (fetchSite === "cross-site") {
-    return false;
-  }
+  if (fetchSite === "cross-site") return false;
 
   const origin = request.headers.origin;
   const host = request.headers.host;
-  if (!origin || !host) {
-    return true;
-  }
+  if (!origin || !host) return true;
 
   try {
     return new URL(origin).host === host;
@@ -78,10 +91,7 @@ function isSameOriginRequest(request) {
 }
 
 function sanitizeText(value, maximumLength) {
-  if (typeof value !== "string") {
-    return "";
-  }
-
+  if (typeof value !== "string") return "";
   return value
     .normalize("NFKC")
     .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "")
@@ -100,9 +110,7 @@ function isValidPhone(value) {
 
 function passesLuhnCheck(value) {
   const digits = value.replace(/\D/g, "");
-  if (digits.length < 13 || digits.length > 19) {
-    return false;
-  }
+  if (digits.length < 13 || digits.length > 19) return false;
 
   let total = 0;
   let doubleDigit = false;
@@ -115,7 +123,6 @@ function passesLuhnCheck(value) {
     total += digit;
     doubleDigit = !doubleDigit;
   }
-
   return total % 10 === 0;
 }
 
@@ -126,14 +133,8 @@ function containsRestrictedData(value) {
 }
 
 function parseBody(request) {
-  if (request.body && typeof request.body === "object") {
-    return request.body;
-  }
-
-  if (typeof request.body === "string") {
-    return JSON.parse(request.body);
-  }
-
+  if (request.body && typeof request.body === "object") return request.body;
+  if (typeof request.body === "string") return JSON.parse(request.body);
   return null;
 }
 
@@ -146,78 +147,68 @@ function buildSourceUrl(request) {
         return parsed.toString();
       }
     } catch {
-      // Fall through to the same-origin host below.
+      // Use the same-origin fallback below.
     }
   }
 
   const host = sanitizeText(request.headers.host || "", 255);
-  return host ? `https://${host}/demo.html` : "TraceOps demo form";
+  return host ? `https://${host}/demo` : "TraceOps demo form";
+}
+
+function reject(response, status, requestId, error) {
+  return response.status(status).json({
+    success: false,
+    request_id: requestId,
+    error,
+  });
 }
 
 export default async function handler(request, response) {
-  setSecurityHeaders(response);
+  const requestId = makeRequestId();
+  setSecurityHeaders(response, requestId);
 
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
-    return response.status(405).json({
-      success: false,
-      error: "Only POST requests are accepted.",
-    });
+    return reject(response, 405, requestId, "Only POST requests are accepted.");
   }
 
   if (!isSameOriginRequest(request)) {
-    return response.status(403).json({
-      success: false,
-      error: "Cross-site submissions are not accepted.",
-    });
+    return reject(response, 403, requestId, "Cross-site submissions are not accepted.");
   }
 
   const contentType = request.headers["content-type"] || "";
   if (!contentType.toLowerCase().startsWith("application/json")) {
-    return response.status(415).json({
-      success: false,
-      error: "The request must use application/json.",
-    });
+    return reject(response, 415, requestId, "The request must use application/json.");
   }
 
   const contentLength = Number(request.headers["content-length"] || 0);
   if (contentLength > MAX_BODY_BYTES) {
-    return response.status(413).json({
-      success: false,
-      error: "The submission is too large.",
-    });
+    return reject(response, 413, requestId, "The submission is too large.");
   }
 
   const ipAddress = getClientIp(request);
   const rateLimit = checkRateLimit(ipAddress);
   if (!rateLimit.allowed) {
     response.setHeader("Retry-After", String(rateLimit.retryAfterSeconds));
-    return response.status(429).json({
-      success: false,
-      error: "Too many requests. Please wait before trying again.",
-    });
+    return reject(response, 429, requestId, "Too many requests. Please wait before trying again.");
   }
 
   let body;
   try {
     body = parseBody(request);
   } catch {
-    return response.status(400).json({
-      success: false,
-      error: "The request contains invalid JSON.",
-    });
+    return reject(response, 400, requestId, "The request contains invalid JSON.");
   }
 
   if (!body || JSON.stringify(body).length > MAX_BODY_BYTES) {
-    return response.status(400).json({
-      success: false,
-      error: "The submission is missing or invalid.",
-    });
+    return reject(response, 400, requestId, "The submission is missing or invalid.");
   }
 
+  // Quietly accept bot submissions without forwarding them upstream.
   if (sanitizeText(body.website, 200)) {
     return response.status(202).json({
       success: true,
+      request_id: requestId,
       message: "Your request was received.",
     });
   }
@@ -235,62 +226,45 @@ export default async function handler(request, response) {
   const privacyAcknowledged = body.privacy_acknowledged === true;
 
   if (!firstName || !isValidEmail(email)) {
-    return response.status(400).json({
-      success: false,
-      error: "A valid first name and email address are required.",
-    });
+    return reject(response, 400, requestId, "A valid first name and email address are required.");
   }
 
   if (!ALLOWED_CONTACT_METHODS.has(contactMethod)) {
-    return response.status(400).json({
-      success: false,
-      error: "Select a valid contact method.",
-    });
+    return reject(response, 400, requestId, "Select a valid contact method.");
   }
 
   if ((contactMethod === "phone" || contactMethod === "text") && !isValidPhone(phone)) {
-    return response.status(400).json({
-      success: false,
-      error: "A valid phone number is required for phone or text contact.",
-    });
+    return reject(response, 400, requestId, "A valid phone number is required for phone or text contact.");
   }
 
   if (!ALLOWED_SERVICES.has(serviceRequested) || !countyState) {
-    return response.status(400).json({
-      success: false,
-      error: "Select a valid service and provide your city/county and state.",
-    });
+    return reject(response, 400, requestId, "Select a valid service and provide your city/county and state.");
   }
 
   if (summary.length < 10 || containsRestrictedData(summary)) {
-    return response.status(400).json({
-      success: false,
-      error:
-        "Provide a brief non-confidential summary without Social Security or payment-card numbers.",
-    });
+    return reject(
+      response,
+      400,
+      requestId,
+      "Provide a brief non-confidential summary without Social Security or payment-card numbers.",
+    );
   }
 
   if (!consentToContact || !privacyAcknowledged) {
-    return response.status(400).json({
-      success: false,
-      error: "Contact consent and the privacy acknowledgment are required.",
-    });
+    return reject(response, 400, requestId, "Contact consent and the privacy acknowledgment are required.");
   }
 
   const apiKey = process.env.THREE_MIN_API_KEY;
   if (!apiKey) {
-    console.error("Lead submission is unavailable: THREE_MIN_API_KEY is not configured.");
-    return response.status(503).json({
-      success: false,
-      error: "Lead submission is temporarily unavailable. Please call or email us.",
+    console.error("TraceOps lead intake is unavailable: THREE_MIN_API_KEY is not configured.", {
+      requestId,
     });
+    return reject(response, 503, requestId, "Lead submission is temporarily unavailable. Please call or email us.");
   }
 
   const fullName = `${firstName} ${lastName}`.trim();
   const contactValue = contactMethod === "email" ? email : phone;
-  const briefSummary = company
-    ? `Company/Firm: ${company}\n${summary}`
-    : summary;
+  const briefSummary = company ? `Company/Firm: ${company}\n${summary}` : summary;
 
   const upstreamPayload = {
     brand: "TraceOps Alpha Ai",
@@ -306,7 +280,7 @@ export default async function handler(request, response) {
   };
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8_000);
+  const timeout = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
 
   try {
     const upstreamResponse = await fetch(THREE_MIN_API_URL, {
@@ -314,7 +288,8 @@ export default async function handler(request, response) {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "User-Agent": "TraceOps-Lead-Proxy/1.0",
+        "User-Agent": "TraceOps-Lead-Proxy/1.1",
+        "X-TraceOps-Request-Id": requestId,
       },
       body: JSON.stringify(upstreamPayload),
       signal: controller.signal,
@@ -330,27 +305,24 @@ export default async function handler(request, response) {
 
     if (!upstreamResponse.ok) {
       console.error("3Min lead submission failed.", {
+        requestId,
         status: upstreamResponse.status,
       });
-      return response.status(502).json({
-        success: false,
-        error: "We could not save your request. Please call or email us.",
-      });
+      return reject(response, 502, requestId, "We could not save your request. Please call or email us.");
     }
 
     return response.status(202).json({
       success: true,
-      message: "Your demo request was received. We will follow up soon.",
+      request_id: requestId,
+      message: "Your demo request was received. Jessie will follow up soon.",
       reference: typeof responseData.id === "string" ? responseData.id : null,
     });
   } catch (error) {
     console.error("Lead submission request failed.", {
+      requestId,
       reason: error instanceof Error ? error.name : "UnknownError",
     });
-    return response.status(502).json({
-      success: false,
-      error: "We could not save your request. Please call or email us.",
-    });
+    return reject(response, 502, requestId, "We could not save your request. Please call or email us.");
   } finally {
     clearTimeout(timeout);
   }

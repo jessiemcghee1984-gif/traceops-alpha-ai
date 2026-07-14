@@ -1,0 +1,6 @@
+Contact: mailto:jessiemcghee1984@gmail.com
+Expires: 2027-07-14T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://traceops-alpha-ai.vercel.app/.well-known/security.txt
+Policy: https://github.com/jessiemcghee1984-gif/traceops-alpha-ai/blob/main/SECURITY.md
+Acknowledgments: https://github.com/jessiemcghee1984-gif/traceops-alpha-ai/blob/main/SECURITY.md
