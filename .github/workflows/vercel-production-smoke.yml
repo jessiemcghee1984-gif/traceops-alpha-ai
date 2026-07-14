@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  verify-payment-source:
+  verify-source:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -31,6 +31,9 @@ jobs:
 
       - name: Verify source payment safeguards
         run: node scripts/verify-payment-source.mjs
+
+      - name: Verify demo and lead API contract
+        run: node scripts/verify-lead-contract.mjs
 
   verify-production:
     if: github.event_name != 'pull_request'
