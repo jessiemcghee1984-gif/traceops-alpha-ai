@@ -18,8 +18,8 @@
 <div class="bar">Applications and demonstrations are active. <strong>No public Stripe or PayPal checkout is currently authorized.</strong></div>
 <header class="header"><div class="wrap nav"><a class="brand" href="/"><span class="mark">TO</span><span>TraceOps Alpha AI<small>Secure case operations</small></span></a><nav class="links"><a href="/">Home</a><a href="/platform">Platform preview</a><a href="/pricing">Pricing</a><a href="/demo" aria-current="page">Demo</a></nav><a class="btn primary" href="/platform">Explore platform</a></div></header>
 <main class="hero"><div class="wrap grid">
-  <section class="copy"><div class="eyebrow">Owner-reviewed access</div><h1>Request the serious version of the platform.</h1><p>Tell us what your firm needs to control: intake, case movement, evidence, field work, reporting, owner oversight, or a complete operational workflow. Jessie McGhee reviews each request before pricing, onboarding, or payment instructions are issued.</p><div class="notice"><strong>Payment safeguard:</strong> do not send card details or money through this form. No public payment destination is currently approved for use.</div><div class="contact"><a class="btn primary" href="tel:+12282233475">Call 228-223-3475</a><a class="btn" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20AI%20Demo">Email Jessie</a></div><div class="trust"><div><span>✓</span>Public form accepts only non-confidential business and workflow information.</div><div><span>✓</span>Protected case, identity, and evidence data belongs in the private application environment.</div><div><span>✓</span>Legal and operational conclusions remain subject to qualified human review.</div></div></section>
-  <section class="card"><h2>Request your demonstration</h2><p>Use this form for a general workflow discussion. Required fields are marked with an asterisk.</p><div class="privacy">Do not include Social Security numbers, dates of birth, payment-card data, passwords, evidence, criminal-history records, confidential case notes, medical records, protected child information, or detailed allegations.</div>
+  <section class="copy"><div class="eyebrow">Owner-reviewed access</div><h1>Request the serious version of the platform.</h1><p>Tell us what your firm needs to control: intake, case movement, evidence, field work, reporting, owner oversight, or a complete operational workflow. Jessie McGhee reviews each request before pricing, onboarding, or payment instructions are issued.</p><div class="notice"><strong>Payment safeguard:</strong> do not send card details or money through this form. No public payment destination is currently approved for use.</div><div class="contact"><a class="btn primary" href="tel:+12282233475">Call 228-223-3475</a><a class="btn" href="mailto:jessiemcghee1984@gmail.com?subject=TraceOps%20Alpha%20AI%20Demo">Email Jessie</a></div><div class="trust"><div><span>✓</span>Public form accepts only minimum non-confidential business and workflow information.</div><div><span>✓</span>Protected case, identity, and evidence data belongs in the private application environment.</div><div><span>✓</span>Legal and operational conclusions remain subject to qualified human review.</div></div></section>
+  <section class="card"><h2>Request your demonstration</h2><p>Use this form only for a general workflow discussion. Required fields are marked with an asterisk.</p><div class="privacy"><strong>Data-processing notice:</strong> submissions are forwarded to the configured 3Min API lead-intake endpoint. Its current production service may retain records without automatic expiration and may archive copies after 30 days. Submit only minimum non-confidential information. Do not include Social Security numbers, dates of birth, payment-card data, passwords, evidence, criminal-history records, confidential case notes, medical records, protected child information, sealed records, private residence addresses, or detailed allegations. Read the <a href="/privacy"><u>Privacy Notice</u></a>.</div>
     <form id="demoForm" action="/api/lead" method="post">
       <div class="honeypot" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
       <div class="formgrid">
@@ -33,8 +33,8 @@
         <div class="field"><label for="serviceType">Primary workflow *</label><select id="serviceType" name="service_requested" required><option>Case Intake Workflow</option><option>General Investigation</option><option>Skip Trace</option><option>Locate Services</option><option>Legal Support</option><option>Process Service</option><option>Evidence Management</option><option>Field Operations</option><option>Owner Command Center</option><option>Custom Demonstration</option></select></div>
         <div class="field full"><label for="summary">Brief non-confidential summary *</label><textarea id="summary" name="summary" minlength="10" maxlength="1000" placeholder="Describe the operational problem, desired workflow, team size, and timeline without including protected case details." required></textarea></div>
       </div>
-      <div class="checks"><div class="check"><input id="consent" name="consent_to_contact" type="checkbox" required /><label for="consent">I consent to being contacted about this request. *</label></div><div class="check"><input id="privacy" name="privacy_acknowledged" type="checkbox" required /><label for="privacy">I understand this public form must not contain sensitive, restricted, or confidential information. *</label></div></div>
-      <button id="submitButton" class="btn primary" type="submit">Submit secure demo request</button><div id="formStatus" class="status" role="status" aria-live="polite"></div>
+      <div class="checks"><div class="check"><input id="consent" name="consent_to_contact" type="checkbox" required /><label for="consent">I consent to being contacted about this request. *</label></div><div class="check"><input id="privacy" name="privacy_acknowledged" type="checkbox" required /><label for="privacy">I read the data-processing notice and understand this public form must not contain sensitive, restricted, or confidential information. *</label></div></div>
+      <button id="submitButton" class="btn primary" type="submit">Submit demo request</button><div id="formStatus" class="status" role="status" aria-live="polite"></div>
     </form>
   </section>
 </div></main>
@@ -54,7 +54,7 @@
     requirePhone();
     if (!form.reportValidity()) return;
     button.disabled = true;
-    button.textContent = 'Submitting securely…';
+    button.textContent = 'Submitting…';
     status.className = 'status';
     const data = new FormData(form);
     const payload = Object.fromEntries(data.entries());
@@ -73,7 +73,7 @@
       status.className = 'status show error';
     } finally {
       button.disabled = false;
-      button.textContent = 'Submit secure demo request';
+      button.textContent = 'Submit demo request';
     }
   });
 })();
