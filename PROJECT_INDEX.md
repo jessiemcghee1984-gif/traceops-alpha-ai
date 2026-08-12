@@ -17,15 +17,26 @@ Canonical private TraceOps source:
 ## Current provider readback — 2026-08-12
 
 - Repository remains **public**.
-- Default branch remains `main`.
+- Default branch remains `main` at `54c6a9954faa238c42870b46ab66db1b0abc0ba4`.
+- `main` is **unprotected** and required status checks are off in direct branch readback.
 - Repository rulesets endpoint returns **none**.
 - GitHub Environments remain `Preview` and `Production`.
 - Both returned environments have `protection_rules: []`.
 - Both returned environments allow admin bypass.
 - No deployment branch policy was returned for either environment.
-- Open project-index PR: #10.
-- Open source-quality issue: #4 — legacy `.html` navigation cleanup.
+- Project-index PR #10 remains Draft/open.
+- Issue #4 — legacy `.html` navigation cleanup — was **verified complete and closed** on 2026-08-12.
 - Dependabot alerts were returned as disabled in the August 6 portfolio audit; they were not separately re-read in this August 12 public-site pass and must not be assumed changed.
+
+## Verified production navigation cleanup
+
+Issue #4 is closed based on direct source and deployment evidence:
+
+- `main/demo.html` uses brand `/`, Home `/`, Pricing `/pricing`, and Demo `/demo`;
+- Vercel production deployment `dpl_CurJjmurfAcGBQ5Ad4snw29SbgXr` for exact main commit `54c6a9954faa238c42870b46ab66db1b0abc0ba4` is `READY`;
+- direct Vercel fetch of `https://traceops-alpha-ai.vercel.app/demo` returned HTTP 200 and those same canonical navigation routes.
+
+No extra source mutation or production deployment was required to close the stale issue.
 
 ## Important files
 
@@ -58,9 +69,9 @@ Canonical private TraceOps source:
 2. Add appropriate Preview/Production environment restrictions and re-read them directly after configuration.
 3. Keep real case data, evidence, credentials, protected identity records and private infrastructure configuration out of this repository.
 4. Keep public pricing/payment claims synchronized to actually approved commercial status and fail closed on unverified payment destinations.
-5. Resolve Issue #4 and run the production smoke verifier after the source correction.
-6. Keep the canonical-private repository link visible in governance records.
-7. Preserve the public/private boundary if new marketing, lead intake or synthetic product-preview features are added.
+5. Keep the canonical-private repository link visible in governance records.
+6. Preserve the public/private boundary if new marketing, lead intake or synthetic product-preview features are added.
+7. Re-run production verification after future production-facing source changes; the Issue #4 closure is evidence for the current main baseline only.
 
 ## Production boundary
 
